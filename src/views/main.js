@@ -1,9 +1,6 @@
-import Config from '@config';
+const rootElement = document.getElementById('__rdnsan');
 
-// Set Title
-document.title = Config.APP_TITLE;
-
-// Main
 const greeting = document.createElement('h1');
-greeting.innerText = 'Hello World!';
-document.body.appendChild(greeting);
+greeting.innerText = 'Welcome to Front End Starter!';
+
+rootElement.appendChild(greeting);

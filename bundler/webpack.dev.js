@@ -11,11 +11,11 @@ module.exports = merge(common, {
     port: 3000,
     open: true,
     allowedHosts: 'all',
-    hot: false,
+    hot: true,
     watchFiles: ['src/**'],
     static: {
       watch: true,
-      directory: path.join(__dirname, '../src/public'),
+      directory: path.join(__dirname, '../public'),
     },
     client: {
       logging: 'info',

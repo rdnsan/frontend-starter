@@ -1,6 +1,8 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const Config = require('../src/config');
 
 module.exports = {
   entry: path.resolve(__dirname, '../src/app/index.js'),
@@ -9,17 +11,16 @@ module.exports = {
     filename: 'bundle.[contenthash].js',
     sourceMapFilename: 'bundle.[contenthash].js.map',
   },
-  devtool: 'inline-source-map',
   resolve: {
+    extensions: ['.js', '.jsx', '.css'],
     alias: {
       '@app': path.resolve(__dirname, '../src/app'),
-      '@components': path.resolve(__dirname, '../src/components'),
-      '@config': path.resolve(__dirname, '../src/config'),
       '@styles': path.resolve(__dirname, '../src/styles'),
-      '@utils': path.resolve(__dirname, '../src/utils'),
-      '@views': path.resolve(__dirname, '../src/views'),
+      '@utils': path.resolve(__dirname, '../src/utils/'),
+      '@views': path.resolve(__dirname, '../src/views/'),
     },
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -34,12 +35,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|png|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
@@ -47,12 +44,34 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, '../src/public'),
+          from: path.resolve(__dirname, '../public'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/templates/index.html'),
+      title: Config.TITLE,
+      template: path.resolve(__dirname, '../src/templates/index.js'),
+      favicon: path.resolve(__dirname, '../public/icon.png'),
+    }),
+    new WebpackPwaManifest({
+      name: Config.TITLE,
+      short_name: Config.TITLE,
+      description: Config.DESCRIPTION,
+      background_color: Config.Colors.secondary,
+      theme_color: Config.Colors.primary,
+      crossorigin: 'use-credentials',
+      publicPath: '.',
+      icons: [
+        {
+          src: path.resolve(__dirname, '../public/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+        },
+        {
+          src: path.resolve(__dirname, '../public/icon.png'),
+          size: '512x512',
+          purpose: 'maskable',
+        },
+      ],
     }),
   ],
 };

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES6",
+    "checkJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["./src/app/index.js"],
+      "@styles": ["./src/styles/index.js"],
+      "@utils/*": ["./src/utils/*"],
+      "@views/*": ["./src/views/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node", "webpack", "webpack-dev-server"]
+}
