@@ -1,5 +1,5 @@
 {
-  "name": "frontend-starter",
+  "name": "@rdnsan/frontend-starter",
   "description": "A starter front-end project with ES6 and Webpack.",
   "version": "1.0.0",
   "main": "index.js",
